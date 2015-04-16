@@ -1,0 +1,93 @@
+	.version 2.1
+	.target sm_20
+	// compiled with /afs/cs.wisc.edu/s/cuda-3.1/cuda/open64/lib//be
+	// nvopencc 3.1 built on 2010-06-07
+
+	//-----------------------------------------------------------
+	// Compiling nn_cuda.cpp3.i (/tmp/ccBI#.gdhAIM)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_20, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"nn_cuda.cudafe2.gpu"
+	.file	3	"nn_cuda.cu"
+	.file	4	"/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h"
+	.file	5	"/s/cuda-3.1/cuda/bin//../include/crt/device_runtime.h"
+	.file	6	"/s/cuda-3.1/cuda/bin//../include/host_defines.h"
+	.file	7	"/s/cuda-3.1/cuda/bin//../include/builtin_types.h"
+	.file	8	"/s/cuda-3.1/cuda/bin//../include/device_types.h"
+	.file	9	"/s/cuda-3.1/cuda/bin//../include/driver_types.h"
+	.file	10	"/s/cuda-3.1/cuda/bin//../include/surface_types.h"
+	.file	11	"/s/cuda-3.1/cuda/bin//../include/texture_types.h"
+	.file	12	"/s/cuda-3.1/cuda/bin//../include/vector_types.h"
+	.file	13	"/s/cuda-3.1/cuda/bin//../include/device_launch_parameters.h"
+	.file	14	"/s/cuda-3.1/cuda/bin//../include/crt/storage_class.h"
+	.file	15	"/usr/include/bits/types.h"
+	.file	16	"/usr/include/time.h"
+	.file	17	"/s/cuda-3.1/cuda/bin//../include/texture_fetch_functions.h"
+	.file	18	"/s/cuda-3.1/cuda/bin//../include/common_functions.h"
+	.file	19	"/s/cuda-3.1/cuda/bin//../include/math_functions.h"
+	.file	20	"/s/cuda-3.1/cuda/bin//../include/math_constants.h"
+	.file	21	"/s/cuda-3.1/cuda/bin//../include/device_functions.h"
+	.file	22	"/s/cuda-3.1/cuda/bin//../include/sm_11_atomic_functions.h"
+	.file	23	"/s/cuda-3.1/cuda/bin//../include/sm_12_atomic_functions.h"
+	.file	24	"/s/cuda-3.1/cuda/bin//../include/sm_13_double_functions.h"
+	.file	25	"/s/cuda-3.1/cuda/bin//../include/sm_20_atomic_functions.h"
+	.file	26	"/s/cuda-3.1/cuda/bin//../include/sm_20_intrinsics.h"
+	.file	27	"/s/cuda-3.1/cuda/bin//../include/surface_functions.h"
+	.file	28	"/s/cuda-3.1/cuda/bin//../include/math_functions_dbl_ptx3.h"
+
+
+	.entry _Z6euclidP7latLongPfiff (
+		.param .u64 __cudaparm__Z6euclidP7latLongPfiff_d_locations,
+		.param .u64 __cudaparm__Z6euclidP7latLongPfiff_d_distances,
+		.param .s32 __cudaparm__Z6euclidP7latLongPfiff_numRecords,
+		.param .f32 __cudaparm__Z6euclidP7latLongPfiff_lat,
+		.param .f32 __cudaparm__Z6euclidP7latLongPfiff_lng)
+	{
+	.reg .u32 %r<8>;
+	.reg .u64 %rd<9>;
+	.reg .f32 %f<11>;
+	.reg .pred %p<3>;
+	.loc	3	45	0
+$LDWbegin__Z6euclidP7latLongPfiff:
+	mov.u32 	%r1, %ctaid.x;
+	mov.u32 	%r2, %ntid.x;
+	mul.lo.u32 	%r3, %r1, %r2;
+	mov.u32 	%r4, %tid.x;
+	add.u32 	%r5, %r4, %r3;
+	ld.param.s32 	%r6, [__cudaparm__Z6euclidP7latLongPfiff_numRecords];
+	setp.le.s32 	%p1, %r6, %r5;
+	@%p1 bra 	$Lt_0_1026;
+	.loc	3	51	0
+	cvt.s64.s32 	%rd1, %r5;
+	ld.param.u64 	%rd2, [__cudaparm__Z6euclidP7latLongPfiff_d_locations];
+	mul.wide.s32 	%rd3, %r5, 8;
+	add.u64 	%rd4, %rd2, %rd3;
+	ld.global.f32 	%f1, [%rd4+4];
+	ld.global.f32 	%f2, [%rd4+0];
+	ld.param.f32 	%f3, [__cudaparm__Z6euclidP7latLongPfiff_lng];
+	sub.f32 	%f4, %f3, %f1;
+	ld.param.f32 	%f5, [__cudaparm__Z6euclidP7latLongPfiff_lat];
+	sub.f32 	%f6, %f5, %f2;
+	mul.f32 	%f7, %f4, %f4;
+	fma.rn.f32 	%f8, %f6, %f6, %f7;
+	sqrt.rn.f32 	%f9, %f8;
+	ld.param.u64 	%rd5, [__cudaparm__Z6euclidP7latLongPfiff_d_distances];
+	mul.wide.s32 	%rd6, %r5, 4;
+	add.u64 	%rd7, %rd5, %rd6;
+	st.global.f32 	[%rd7+0], %f9;
+$Lt_0_1026:
+	.loc	3	53	0
+	exit;
+$LDWend__Z6euclidP7latLongPfiff:
+	} // _Z6euclidP7latLongPfiff
+

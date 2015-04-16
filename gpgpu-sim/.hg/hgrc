@@ -1,0 +1,4 @@
+[paths]
+default = http://gem5-gpu.cs.wisc.edu/repo/gpgpu-sim
+[extensions]
+mq =
